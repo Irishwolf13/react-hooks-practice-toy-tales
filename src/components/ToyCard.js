@@ -16,10 +16,18 @@ function ToyCard({ name, image, likes, id }) {
     })
   },[numbLikes, id]) // Ask why I need the ID here? ************************************
 
-  const handleDonateClicked = () => {
+  const handleDonateClicked = (event) => {
     //Going to create a fetch request here to DELETE item and refresh DOM.
+    fetch(`http://localhost:3001/toys/${ id }`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(() => event.target.parentElement.remove())
   }
-
+  
   return (
     <div className="card">
       <h2>{ name }</h2>
